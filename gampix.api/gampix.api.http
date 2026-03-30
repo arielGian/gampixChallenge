@@ -1,0 +1,55 @@
+@gampix.api_HostAddress = http://localhost:5000
+
+### Users Endpoints
+
+# Get all users
+GET {{gampix.api_HostAddress}}/api/users
+
+### Create user
+POST {{gampix.api_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+  "username": "juan_perez",
+  "email": "juan@example.com",
+  "initialBalance": 1000
+}
+
+### Games Endpoints
+
+# Get all games
+GET {{gampix.api_HostAddress}}/api/games
+
+### Create game
+POST {{gampix.api_HostAddress}}/api/games
+Content-Type: application/json
+
+{
+  "name": "Barcelona vs Real Madrid",
+  "description": "Clásico español",
+  "startDate": "2026-04-15T20:00:00Z",
+  "endDate": "2026-04-15T22:00:00Z",
+  "oddsWin": 1.5
+}
+
+### Bets Endpoints
+
+# Get all bets
+GET {{gampix.api_HostAddress}}/api/bets
+
+### Create bet
+POST {{gampix.api_HostAddress}}/api/bets
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "game": "Barcelona vs Real Madrid",
+  "stake": 100,
+  "winAmount": 150
+}
+
+### Get RTP
+GET {{gampix.api_HostAddress}}/api/bets/rtp
+
+### Get bets by game name
+GET {{gampix.api_HostAddress}}/api/bets/game/Barcelona%20vs%20Real%20Madrid
