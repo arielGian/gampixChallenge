@@ -1,3 +1,7 @@
 <Solution>
   <Project Path="gampix.api/gampix.api.csproj" />
+  <Project Path="gampixFront/gampixfront.esproj">
+    <Build />
+    <Deploy />
+  </Project>
 </Solution>

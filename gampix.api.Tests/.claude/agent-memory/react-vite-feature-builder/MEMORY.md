@@ -1,0 +1,1 @@
+- [gampixfront frontend project](project_gampixfront.md) — React 19 + Vite frontend for Gampix betting app: stack, dark theme palette, file locations, routing setup

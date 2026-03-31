@@ -5,8 +5,12 @@ namespace gampix.api.Services
     public class GameService : IGameService
     {
         // TODO: Implement with database context when ready
-        private static List<Game> _games = new();
-        private static int _nextId = 1;
+        private static List<Game> _games = new()
+        {
+            new Game { Id = 1, Name = "roulette", Description = "Classic roulette", OddsWin = 35, IsActive = true, StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddYears(1) },
+            new Game { Id = 2, Name = "blackjack", Description = "Classic blackjack", OddsWin = 2, IsActive = true, StartDate = DateTime.UtcNow, EndDate = DateTime.UtcNow.AddYears(1) }
+        };
+        private static int _nextId = 3;
 
         public async Task<List<Game>> GetAllGamesAsync()
         {

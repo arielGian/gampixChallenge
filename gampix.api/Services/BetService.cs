@@ -4,8 +4,15 @@ namespace gampix.api.Services
 {
     public class BetService : IBetService
     {
-        private static List<Bet> _bets = new();
-        private static int _nextId = 1;
+        private static List<Bet> _bets = new()
+        {
+            new Bet { Id = 1, UserId = 1, GameName = "roulette",  Stake = 100, WinAmount = 3500, Status = BetStatus.Won  },
+            new Bet { Id = 2, UserId = 1, GameName = "blackjack", Stake = 200, WinAmount = 0,    Status = BetStatus.Lost },
+            new Bet { Id = 3, UserId = 2, GameName = "roulette",  Stake = 50,  WinAmount = 0,    Status = BetStatus.Lost },
+            new Bet { Id = 4, UserId = 2, GameName = "blackjack", Stake = 150, WinAmount = 300,  Status = BetStatus.Won  },
+            new Bet { Id = 5, UserId = 3, GameName = "blackjack", Stake = 300, WinAmount = 600,  Status = BetStatus.Won  },
+        };
+        private static int _nextId = 6;
 
         public async Task<List<Bet>> GetAllBetsAsync()
         {
@@ -80,6 +87,31 @@ namespace gampix.api.Services
 
             var totalWin = _bets.Sum(b => b.WinAmount);
             return (totalWin / totalStake) * 100;
+        }
+
+        public async Task<StatsResponse> GetStatsAsync()
+        {
+            await Task.Delay(0);
+
+            var games = _bets
+                .GroupBy(b => b.GameName)
+                .Select(g => new GameRtp
+                {
+                    Game = g.Key,
+                    Rtp = g.Sum(b => b.Stake) == 0 ? 0
+                          : (g.Sum(b => b.WinAmount) / g.Sum(b => b.Stake)) * 100
+                }).ToList();
+
+            var users = _bets
+                .GroupBy(b => b.UserId)
+                .Select(g => new UserStats
+                {
+                    UserId = g.Key,
+                    TotalStake = g.Sum(b => b.Stake),
+                    TotalWin = g.Sum(b => b.WinAmount)
+                }).ToList();
+
+            return new StatsResponse { Games = games, Users = users };
         }
     }
 }

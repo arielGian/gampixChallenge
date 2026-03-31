@@ -5,8 +5,13 @@ namespace gampix.api.Services
     public class UserService : IUserService
     {
         // TODO: Implement with database context when ready
-        private static List<User> _users = new();
-        private static int _nextId = 1;
+        private static List<User> _users = new()
+        {
+            new User { Id = 1, Username = "player1", Email = "player1@gampix.com", Balance = 1000 },
+            new User { Id = 2, Username = "player2", Email = "player2@gampix.com", Balance = 500 },
+            new User { Id = 3, Username = "player3", Email = "player3@gampix.com", Balance = 750 }
+        };
+        private static int _nextId = 4;
 
         public async Task<List<User>> GetAllUsersAsync()
         {

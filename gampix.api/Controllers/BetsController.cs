@@ -135,6 +135,21 @@ namespace gampix.api.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+        [HttpGet("/stats")]   // ruta absoluta: GET /stats (no /api/bets/stats)
+        public async Task<ActionResult<StatsResponse>> GetStats()
+        {
+            try
+            {
+                var stats = await _betService.GetStatsAsync();
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting stats");
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 
     public class UpdateBetStatusRequest

@@ -11,6 +11,7 @@ namespace gampix.api.Services
         Task<Bet> CreateBetAsync(CreateBetRequest request);
         Task<Bet> UpdateBetStatusAsync(int id, BetStatus status, string? result);
         Task<decimal> GetRTPAsync();
+        Task<StatsResponse> GetStatsAsync();
     }
 
     public class CreateBetRequest
@@ -20,4 +21,13 @@ namespace gampix.api.Services
         public int Stake { get; set; }
         public decimal WinAmount { get; set; }
     }
+    
+
+    public class StatsResponse
+    {
+        public List<GameRtp> Games { get; set; } = new();
+        public List<UserStats> Users { get; set; } = new();
+    }
+    public class GameRtp { public string Game { get; set; } = ""; public decimal Rtp { get; set; } }
+    public class UserStats { public int UserId { get; set; } public decimal TotalStake { get; set; } public decimal TotalWin { get; set; } }
 }
